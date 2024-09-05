@@ -1,5 +1,6 @@
 {
-  "name": "emsd-digital-twins-platform",
+  "name": "taipei-code-fest",
+  "homepage": "https://sali830101.github.io/code-fest-frontend/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

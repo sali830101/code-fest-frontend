@@ -18,7 +18,7 @@ const Map = forwardRef(({ lng, lat, zoom, ...props }, ref) => {
   const initMap = () => {
     ref.current = new maplibregl.Map({
       container: mapContainer.current, // container id
-      style: "style.json", // style URL
+      style: "https://api.maptiler.com/maps/c12b458c-9e18-4b86-941f-77310c674f66/style.json?key=wZclUAXOyI4a4xo1yK6k", // style URL
       center: [120.894092, 23.6353498],
       zoom: 8,
       // pitch: 45,
