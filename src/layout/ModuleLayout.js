@@ -46,12 +46,10 @@ const ModuleLayout = () => {
         }}
       >
         <CssBaseline />
-        <AppHeader />
         <Box
           sx={{
-            bottom: -64,
             width: "100%",
-            height: "calc(100vh - 64px)",
+            height: "100vh",
             overflow: "hidden",
             position: "relative",
           }}
