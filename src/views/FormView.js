@@ -38,7 +38,7 @@ const HomeView = () => {
   const navigate = useNavigate();
 
   // user data
-  const [eventID, setEventID] = useState("");
+  const [eventID, setEventID] = useState("999");
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
   const [gpsData, setGPSData] = useState([]);
@@ -49,23 +49,7 @@ const HomeView = () => {
   const [endTime, setEndTime] = useState(dayjs("2024-09-08T15:30"));
   const [postTime, setPostTime] = useState("");
   const [currentHashtags, setCurrentHashtags] = useState([]);
-
-  const summit = JSON.stringify({
-    event_id: "event" + eventID,
-    post_user_id: "member1",
-    post_datetime: postTime,
-    address: address,
-    coordinate: gpsData,
-    title: title,
-    category: category,
-    start_date: startTime,
-    end_date: endTime,
-    image: "image5.jpg",
-    hashtag: currentHashtags,
-    post: comment,
-    comments: [],
-    status: "open",
-  });
+  const [eventData, setEventData] = useState(null);
 
   const API_KEY = "AIzaSyBkItptRJKeHJmj03NrrFm8Oy-5khTKiow";
   const convertToGps = async (address) => {
@@ -112,20 +96,6 @@ const HomeView = () => {
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
-  const itemData = [
-    {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-      title: "Breakfast",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Burger",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-      title: "Camera",
-    },
-  ];
 
   const formatDate = (date) => {
     const year = date.getFullYear();
@@ -138,53 +108,107 @@ const HomeView = () => {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
 
-  const saveToLocalStorage = () => {
-    //建立post time
-    //儲存數據
-    //跳轉頁面
-    const currentTime = new Date();
-    setPostTime(formatDate(currentTime));
-    localStorage.setItem("data", summit);
-    alert("數據已保存到 localStorage");
-    readLocalStorag();
+  const formatCount = (count) => {
+    return count.toString().padStart(3, "0");
   };
 
-  const readLocalStorag = () => {
-    let data = localStorage.getItem("data");
-    setTestData(data);
-  };
-
-  const [test_data, setTestData] = useState("123");
-
-  useEffect(() => {
-    const formatEventID = (number) => {
-      const positiveInt = Math.max(0, Math.floor(Number(number)));
-      return positiveInt.toString().padStart(3, "0");
-    };
-
+  const updateEventDataCount = useCallback(() => {
     const data = localStorage.getItem("data");
     if (data) {
       try {
         const parsedData = JSON.parse(data);
-        let length = 0;
-
         if (Array.isArray(parsedData)) {
-          length = parsedData.length;
+          const startNum = 600 + parsedData.length;
+          setEventData(formatCount(startNum));
         } else if (typeof parsedData === "object" && parsedData !== null) {
-          length = Object.keys(parsedData).length;
+          setEventData("991");
         } else {
-          length = 1;
+          setEventData("992");
         }
-
-        setEventID(formatEventID(length));
       } catch (error) {
         console.error("Error parsing data from localStorage:", error);
-        setEventID("000");
+        setEventData("000");
       }
     } else {
-      setEventID("000");
+      setEventData("000");
     }
   }, []);
+
+  const saveToLocalStorage = useCallback(() => {
+    const currentTime = new Date();
+    const formattedPostTime = formatDate(currentTime);
+    setPostTime(formattedPostTime);
+
+    updateEventDataCount();
+
+    const latestSummit = {
+      event_id: "event" + eventID,
+      post_user_id: "member1",
+      post_datetime: formattedPostTime,
+      address: address,
+      coordinate: gpsData,
+      title: title,
+      category: category,
+      start_date: startTime.toISOString(),
+      end_date: endTime.toISOString(),
+      image: "image5.jpg",
+      hashtag: currentHashtags,
+      post: comment,
+      comments: [],
+      status: "open",
+    };
+
+    const existingData = localStorage.getItem("data");
+    let newData;
+    if (existingData) {
+      try {
+        const parsedExistingData = JSON.parse(existingData);
+        if (Array.isArray(parsedExistingData)) {
+          newData = [...parsedExistingData, latestSummit];
+        } else {
+          newData = [parsedExistingData, latestSummit];
+        }
+      } catch (error) {
+        console.error("Error parsing existing data:", error);
+        newData = [latestSummit];
+      }
+    } else {
+      newData = [latestSummit];
+    }
+
+    localStorage.setItem("data", JSON.stringify(latestSummit));
+    alert(JSON.stringify(latestSummit));
+  }, [
+    eventID,
+    address,
+    gpsData,
+    title,
+    category,
+    startTime,
+    endTime,
+    currentHashtags,
+    comment,
+    updateEventDataCount,
+  ]);
+
+  useEffect(() => {
+    updateEventDataCount();
+  }, [
+    eventID,
+    address,
+    gpsData,
+    title,
+    category,
+    startTime,
+    endTime,
+    currentHashtags,
+    comment,
+    updateEventDataCount,
+  ]);
+
+  const goHomeView = (category) => {
+    navigate(`/modules/home?category=${category}`);
+  };
 
   return (
     <Box
@@ -200,7 +224,8 @@ const HomeView = () => {
         },
       }}
     >
-      <div>{summit}</div>
+      <div>{eventID}</div>
+      <div>{eventData}</div>
       <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
         <Typography
           component="label"
