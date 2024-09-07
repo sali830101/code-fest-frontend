@@ -1,82 +1,123 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
+import {
+  Button,
+  Box,
+  Typography,
+  CircularProgress,
+  Grid,
+  IconButton,
+} from "@mui/material";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const DeviceContentReader = () => {
-  const [selectedContent, setSelectedContent] = useState(null);
-  const [contentType, setContentType] = useState('');
+const MultiplePhotoUploader = () => {
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
 
-  const handleContentSelect = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setContentType(file.type);
-      const reader = new FileReader();
+  const handlePhotoSelect = (event) => {
+    setLoading(true);
+    const files = Array.from(event.target.files);
+    const promises = files.map((file) => {
+      return new Promise((resolve, reject) => {
+        if (file && file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            resolve(e.target.result);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        } else {
+          reject(new Error("Not an image file"));
+        }
+      });
+    });
 
-      reader.onload = (e) => {
-        setSelectedContent(e.target.result);
-      };
-
-      if (file.type.startsWith('image/')) {
-        reader.readAsDataURL(file);
-      } else if (file.type.startsWith('text/')) {
-        reader.readAsText(file);
-      } else if (file.type.startsWith('audio/')) {
-        reader.readAsDataURL(file);
-      } else {
-        reader.readAsDataURL(file);
-      }
-    }
+    Promise.all(promises)
+      .then((results) => {
+        setSelectedImages((prevImages) => [...prevImages, ...results]);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error reading files:", error);
+        setLoading(false);
+        alert(
+          "錯誤：無法讀取一個或多個文件。請確保所有選擇的文件都是有效的圖片。"
+        );
+      });
   };
 
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
 
-  const renderContent = () => {
-    if (!selectedContent) return null;
-
-    if (contentType.startsWith('image/')) {
-      return <img src={selectedContent} alt="Selected" className="w-full h-auto rounded-lg shadow-lg" />;
-    } else if (contentType.startsWith('text/')) {
-      return <pre className="bg-gray-100 p-4 rounded-lg overflow-auto">{selectedContent}</pre>;
-    } else if (contentType.startsWith('audio/')) {
-      return <audio controls src={selectedContent} className="w-full" />;
-    } else {
-      return <p>File selected: {contentType}</p>;
-    }
+  const handleDeleteImage = (index) => {
+    setSelectedImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 2,
+      }}
+    >
       <input
         type="file"
-        onChange={handleContentSelect}
+        accept="image/*"
+        onChange={handlePhotoSelect}
         ref={fileInputRef}
-        className="hidden"
-        accept="image/*,text/*,audio/*"
+        style={{ display: "none" }}
+        multiple
       />
-      {/* <button
+      <Button
+        variant="contained"
+        startIcon={<PhotoCamera />}
         onClick={handleButtonClick}
-        className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mb-4"
       >
-        選擇裝置內容
-      </button> */}
-      {selectedContent && (
-        <div className="mt-4">
-          {renderContent()}
-        </div>
+        選擇照片
+      </Button>
+      {loading && <CircularProgress />}
+      {selectedImages.length > 0 && (
+        <Box sx={{ mt: 2, width: "100%" }}>
+          <Typography variant="subtitle1" gutterBottom>
+            已選擇的照片：
+          </Typography>
+          <Grid container spacing={2}>
+            {selectedImages.map((image, index) => (
+              <Grid item xs={6} sm={4} md={3} key={index}>
+                <Box sx={{ position: "relative" }}>
+                  <img
+                    src={image}
+                    alt={`Selected ${index + 1}`}
+                    style={{
+                      width: "100%",
+                      height: "150px",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <IconButton
+                    sx={{
+                      position: "absolute",
+                      top: 5,
+                      right: 5,
+                      backgroundColor: "rgba(255,255,255,0.7)",
+                    }}
+                    onClick={() => handleDeleteImage(index)}
+                    size="small"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 
-export default DeviceContentReader;
-
-// // 使用示例
-// const App = () => {
-//   return (
-//     <div className="bg-gray-100 min-h-screen py-8">
-//       <h1 className="text-2xl font-bold text-center mb-8">裝置內容讀取器</h1>
-//       <DeviceContentReader />
-//     </div>
-//   );
-// };
+export default MultiplePhotoUploader;

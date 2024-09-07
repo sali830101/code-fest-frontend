@@ -26,17 +26,11 @@ import DeviceContentReader from "../component/DeviceFile.js";
 import HashtagInput from "../component/HashTag.js";
 import axios from "axios";
 import { Height } from "@mui/icons-material";
-
-const inlineStyle = {
-  width: "80%",
-  backgroundColor: "lightblue",
-  padding: "10px",
-  borderRadius: "5px",
-  marginBottom: "10px",
-};
+import SendIcon from "@mui/icons-material/Send";
 
 const selectStyle = {
-  width: "80%",
+  height: "40px",
+  width: "100%",
 };
 
 const HomeView = () => {
@@ -54,18 +48,20 @@ const HomeView = () => {
   const [startTime, setStartTime] = useState(dayjs("2024-09-08T10:30"));
   const [endTime, setEndTime] = useState(dayjs("2024-09-08T15:30"));
   const [postTime, setPostTime] = useState("");
+  const [currentHashtags, setCurrentHashtags] = useState([]);
 
   const summit = JSON.stringify({
     event_id: "event" + eventID,
     post_user_id: "member1",
     post_datetime: postTime,
+    address: address,
     coordinate: gpsData,
     title: title,
     category: category,
     start_date: startTime,
     end_date: endTime,
     image: "image5.jpg",
-    hashtag: ["中正紀念堂", "自由廣場", "飲料", "五十嵐"],
+    hashtag: currentHashtags,
     post: comment,
     comments: [],
     status: "open",
@@ -87,6 +83,9 @@ const HomeView = () => {
     }
   };
 
+  const handleHashtagsChange = (newHashtags) => {
+    setCurrentHashtags(newHashtags);
+  };
   const handleTitle = (event) => {
     setTitle(event.target.value);
   };
@@ -202,132 +201,212 @@ const HomeView = () => {
       }}
     >
       <div>{summit}</div>
-      <div>
-        <label
+      <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
+        <Typography
+          component="label"
           htmlFor="title"
-          className="block text-sm font-medium text-gray-700"
+          sx={{
+            fontSize: "0.875rem",
+            fontWeight: "medium",
+            color: "text.secondary",
+            width: "60px",
+          }}
         >
           標題
-        </label>
-        <input
-          style={inlineStyle}
+        </Typography>
+        <TextField
           id="title"
           onChange={handleTitle}
           value={title}
-          className="mt-1 block w-full shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           placeholder="請輸入標題"
-          type="text"
+          fullWidth
+          variant="outlined"
+          size="small"
+          InputProps={{
+            sx: {
+              height: "40px",
+            },
+          }}
         />
-      </div>
+      </Box>
 
-      {/* <div>
-        <label
-          htmlFor="address"
-          className="block text-sm font-medium text-gray-700">
+      <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
+        <Typography
+          component="label"
+          htmlFor="title"
+          sx={{
+            fontSize: "0.875rem",
+            fontWeight: "medium",
+            color: "text.secondary",
+            width: "60px",
+          }}
+        >
           地址
-        </label>
+        </Typography>
         <TextField
-          style={inlineStyle}
           id="address"
-          value={address}
           onChange={handleAddress}
-          className="mt-1 block w-full"
+          value={address}
           placeholder="請輸入地址"
+          fullWidth
+          variant="outlined"
+          size="small"
+          InputProps={{
+            sx: {
+              height: "40px",
+            },
+          }}
         />
-      </div>
+      </Box>
 
-      <div>
-        <text style={{ fontSize: 12 }}>{setEventID}</text>
-      </div>
-
-      <div>
-        <InputLabel id="demo-simple-select-label">類別</InputLabel>
+      <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
+        <Typography
+          component="label"
+          htmlFor="title"
+          sx={{
+            fontSize: "0.875rem",
+            fontWeight: "medium",
+            color: "text.secondary",
+            width: "60px",
+          }}
+        >
+          類別
+        </Typography>
         <Select
           style={selectStyle}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={category}
           label="類別"
-          onChange={handleCategoryChange}>
+          onChange={handleCategoryChange}
+        >
           <MenuItem value={"food"}>食物</MenuItem>
-          <MenuItem value={"item"}>物資</MenuItem>
-          <MenuItem value={"people"}>人力</MenuItem>
+          <MenuItem value={"item"}>物品</MenuItem>
+          <MenuItem value={"help"}>人力 (小幫手)</MenuItem>
         </Select>
-      </div>
+      </Box>
 
       <div>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={["DateTimePicker", "DateTimePicker"]}>
-            <DateTimePicker
-              label="開始時間"
-              value={startTime ? startTime : new Date()}
-              onChange={(newValue) => setStartTime(newValue)}
-            />
-            <DateTimePicker
-              label="結束時間"
-              value={endTime ? endTime : new Date()}
-              onChange={(newValue) => setEndTime(newValue)}
-            />
+            <Box
+              sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}
+            >
+              <Typography
+                component="label"
+                htmlFor="title"
+                sx={{
+                  fontSize: "0.875rem",
+                  fontWeight: "medium",
+                  color: "text.secondary",
+                  width: "60px",
+                }}
+              >
+                開始時間
+              </Typography>
+              <DateTimePicker
+                // label="開始時間"
+                value={startTime ? startTime : new Date()}
+                onChange={(newValue) => setStartTime(newValue)}
+              />
+              <div style={{ margin: "10px" }}></div>
+              {/* </Box>
+            <Box
+              sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}
+            > */}
+              <Typography
+                component="label"
+                htmlFor="title"
+                sx={{
+                  fontSize: "0.875rem",
+                  fontWeight: "medium",
+                  color: "text.secondary",
+                  width: "60px",
+                }}
+              >
+                結束時間
+              </Typography>
+              <DateTimePicker
+                // label="結束時間"
+                value={endTime ? endTime : new Date()}
+                onChange={(newValue) => setEndTime(newValue)}
+              />
+            </Box>
           </DemoContainer>
         </LocalizationProvider>
       </div>
 
-      <div>
-        <label
-          htmlFor="comment"
-          className="block text-sm font-medium text-gray-300">
+      <Box sx={{ alignItems: "center", marginTop: 2 }}>
+        <Typography
+          component="label"
+          htmlFor="title"
+          sx={{
+            fontSize: "0.875rem",
+            fontWeight: "medium",
+            color: "text.secondary",
+            width: "60px",
+          }}
+        >
           內容
-        </label>
-        <textarea
+        </Typography>
+        <TextField
           id="comment"
-          value={comment === null ? comment : "請輸入完整訊息"}
+          value={comment}
           onChange={handleCommentChange}
           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="請輸入完整訊息"
-          rows={10}
+          multiline
           style={{ Height: "250px", width: "100%" }}
         />
-      </div> */}
-      {/* <div>
-        <Button type="submit" className="w-full">
-          上傳圖片
-        </Button>
-      </div>
+      </Box>
+      <Box sx={{ alignItems: "center", marginTop: 2 }}>
+        <Typography
+          component="label"
+          htmlFor="title"
+          sx={{
+            fontSize: "0.875rem",
+            fontWeight: "medium",
+            color: "text.secondary",
+            width: "60px",
+          }}
+        >
+          上傳照片
+        </Typography>
+        <DeviceContentReader />
+      </Box>
+      <Box sx={{ alignItems: "center", marginTop: 2 }}>
+        <Typography
+          component="label"
+          htmlFor="title"
+          sx={{
+            fontSize: "0.875rem",
+            fontWeight: "medium",
+            color: "text.secondary",
+            width: "60px",
+          }}
+        >
+          新增HashTag
+        </Typography>
+        <HashtagInput onHashtagsChange={handleHashtagsChange}></HashtagInput>
+      </Box>
 
-      <div>
-        <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-          {itemData.map((item) => (
-            <ImageListItem key={item.img}>
-              <img
-                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                alt={item.title}
-                loading="lazy"
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </div> */}
-      <div>
-        <div className="bg-gray-100 min-h-screen py-8">
-          <h1 className="text-2xl font-bold text-center mb-8">上傳照片</h1>
-          <DeviceContentReader />
-        </div>
-      </div>
-      <div>
-        <HashtagInput></HashtagInput>
-      </div>
-      <div>
+      <Box display="flex" justifyContent="center" width="100%" mt={2} mb={2}>
         <Button
-          type="submit"
-          className="w-full"
-          onClick={() => {
-            saveToLocalStorage();
+          variant="contained"
+          startIcon={<SendIcon />}
+          onClick={saveToLocalStorage}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            "& .MuiButton-startIcon": {
+              marginRight: 1,
+            },
           }}
         >
           提交
         </Button>
-      </div>
+      </Box>
     </Box>
   );
 };
