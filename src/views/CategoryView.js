@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Box, TextField, Button, Typography, useTheme } from "@mui/material";
+import { Box, TextField, Button, Typography, useTheme, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const HomeView = () => {
@@ -8,68 +8,27 @@ const HomeView = () => {
 
   const [category, setCategory] = useState("");
 
-  const goHomeView = (needHelp) => {
-    if (needHelp) {
-      navigate(`/modules/form?category=${category}`);
-    } else {
-      navigate(`/modules/home?category=${category}`);
-    }
+  const goHomeView = (category) => {
+    navigate(`/modules/home?category=${category}`);
   };
 
   return (
     <Box width="100%" height="100%">
       {!category && (
-        <Box>
-          <Box display="flex">
-            <Button
-              flex={1}
-              onClick={() => {
-                setCategory("food");
-              }}
-            >
-              食
-            </Button>
-            <Button
-              flex={1}
-              onClick={() => {
-                setCategory("item");
-              }}
-            >
-              物
-            </Button>
+        <Box display="flex" flexDirection={"column"} justifyContent={"center"} alignItems={"center"} height={"100%"} gap={2}>
+          <img height={200} alt="logo" src="icons/back01.png" />
+          <Box display="flex" justifyContent={"center"}>
+            <IconButton onClick={() => goHomeView("help")}>
+              <img height={60} alt="logo" src="icons/hands.png" />
+            </IconButton>
+            <IconButton onClick={() => goHomeView("item")}>
+              <img height={60} alt="logo" src="icons/objects.png" />
+            </IconButton>
+            <IconButton onClick={() => goHomeView("food")}>
+              <img height={60} alt="logo" src="icons/foods.png" />
+            </IconButton>
           </Box>
-          <Box display="flex">
-            <Button
-              flex={1}
-              onClick={() => {
-                setCategory("help");
-              }}
-            >
-              小幫手
-            </Button>
-          </Box>
-        </Box>
-      )}
-      {category && (
-        <Box>
-          <Box display="flex">
-            <Button
-              flex={1}
-              onClick={() => {
-                goHomeView(0);
-              }}
-            >
-              我要幫忙
-            </Button>
-            <Button
-              flex={1}
-              onClick={() => {
-                goHomeView(1);
-              }}
-            >
-              我需要幫忙
-            </Button>
-          </Box>
+          <img height={60} alt="logo" src="icons/foods.png" />
         </Box>
       )}
     </Box>

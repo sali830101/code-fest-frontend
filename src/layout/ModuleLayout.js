@@ -46,12 +46,10 @@ const ModuleLayout = () => {
         }}
       >
         <CssBaseline />
-        <AppHeader />
         <Box
           sx={{
-            bottom: -64,
             width: "100%",
-            height: "calc(100vh - 64px)",
+            height: "100vh",
             overflow: "hidden",
             position: "relative",
           }}
@@ -65,7 +63,7 @@ const ModuleLayout = () => {
               backgroundColor: theme.palette.background.default,
               zIndex: `${theme.zIndex.drawer - 1} !important`,
             }}
-            padding={3}
+            padding={2}
           >
             <ModuleController />
           </Box>

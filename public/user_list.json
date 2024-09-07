@@ -1,0 +1,702 @@
+[
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "account": "user0001",
+      "username": "Alice",
+      "realName": "張小華",
+      "idNo": "B234567890",
+      "email": "alice@example.com",
+      "phoneNo": "0923456789",
+      "birthday": "1990/05/20",
+      "memberType": "personal",
+      "verifyLevel": "2",
+      "addresses": [
+        {
+          "zip3": 105,
+          "city": "臺北市",
+          "town": "大安區",
+          "village": "敦化里",
+          "street": "敦化南路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市大安區敦化南路 45 號 6 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "b2c3d4e5-f678-9012-abcd-ef3456789012",
+      "account": "user0002",
+      "username": "Bob",
+      "realName": "李大明",
+      "idNo": "C345678901",
+      "email": "bob@example.com",
+      "phoneNo": "0934567890",
+      "birthday": "1985/09/15",
+      "memberType": "personal",
+      "verifyLevel": "3",
+      "addresses": [
+        {
+          "zip3": 106,
+          "city": "臺北市",
+          "town": "信義區",
+          "village": "松德里",
+          "street": "松仁路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市信義區松仁路 23 號 2 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "c3d4e5f6-7890-1234-abcd-ef4567890123",
+      "account": "user0003",
+      "username": "Charlie",
+      "realName": "王美玲",
+      "idNo": "D456789012",
+      "email": "charlie@example.com",
+      "phoneNo": "0945678901",
+      "birthday": "1992/03/25",
+      "memberType": "personal",
+      "verifyLevel": "2",
+      "addresses": [
+        {
+          "zip3": 103,
+          "city": "臺北市",
+          "town": "大同區",
+          "village": "長安里",
+          "street": "長安西街",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市大同區長安西街 10 號 1 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "d4e5f678-9012-3456-abcd-ef5678901234",
+      "account": "user0004",
+      "username": "David",
+      "realName": "劉天宇",
+      "idNo": "E567890123",
+      "email": "david@example.com",
+      "phoneNo": "0956789012",
+      "birthday": "1988/07/04",
+      "memberType": "personal",
+      "verifyLevel": "3",
+      "addresses": [
+        {
+          "zip3": 107,
+          "city": "臺北市",
+          "town": "南港區",
+          "village": "圓環里",
+          "street": "南港路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市南港區南港路 99 號 5 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "e5f67890-1234-5678-abcd-ef6789012345",
+      "account": "user0005",
+      "username": "Eva",
+      "realName": "張美麗",
+      "idNo": "F678901234",
+      "email": "eva@example.com",
+      "phoneNo": "0967890123",
+      "birthday": "1995/06/30",
+      "memberType": "personal",
+      "verifyLevel": "2",
+      "addresses": [
+        {
+          "zip3": 108,
+          "city": "臺北市",
+          "town": "文山區",
+          "village": "景美里",
+          "street": "景美街",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市文山區景美街 55 號 3 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "f6789012-3456-7890-abcd-ef7890123456",
+      "account": "user0006",
+      "username": "Frank",
+      "realName": "蔡志明",
+      "idNo": "G789012345",
+      "email": "frank@example.com",
+      "phoneNo": "0978901234",
+      "birthday": "1991/11/11",
+      "memberType": "personal",
+      "verifyLevel": "3",
+      "addresses": [
+        {
+          "zip3": 110,
+          "city": "新北市",
+          "town": "板橋區",
+          "village": "三民里",
+          "street": "三民路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "新北市板橋區三民路 123 號 4 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "01234567-8901-2345-abcd-ef8901234567",
+      "account": "user0007",
+      "username": "Grace",
+      "realName": "陳玉珍",
+      "idNo": "H890123456",
+      "email": "grace@example.com",
+      "phoneNo": "0989012345",
+      "birthday": "1993/08/22",
+      "memberType": "personal",
+      "verifyLevel": "2",
+      "addresses": [
+        {
+          "zip3": 111,
+          "city": "新北市",
+          "town": "三峽區",
+          "village": "永和里",
+          "street": "永和路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "新北市三峽區永和路 78 號 2 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "12345678-9012-3456-abcd-ef9012345678",
+      "account": "user0008",
+      "username": "Hannah",
+      "realName": "林欣怡",
+      "idNo": "I901234567",
+      "email": "hannah@example.com",
+      "phoneNo": "0990123456",
+      "birthday": "1994/02/14",
+      "memberType": "personal",
+      "verifyLevel": "3",
+      "addresses": [
+        {
+          "zip3": 112,
+          "city": "新北市",
+          "town": "汐止區",
+          "village": "大同里",
+          "street": "大同路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "新北市汐止區大同路 34 號 6 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "23456789-0123-4567-abcd-ef0123456789",
+      "account": "user0009",
+      "username": "Ian",
+      "realName": "吳子傑",
+      "idNo": "J012345678",
+      "email": "ian@example.com",
+      "phoneNo": "0912345678",
+      "birthday": "1989/10/09",
+      "memberType": "personal",
+      "verifyLevel": "2",
+      "addresses": [
+        {
+          "zip3": 104,
+          "city": "臺北市",
+          "town": "中山區",
+          "village": "龍江里",
+          "street": "龍江路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市中山區龍江路 89 號 4 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "34567890-1234-5678-abcd-ef1234567890",
+      "account": "user0010",
+      "username": "Jane",
+      "realName": "謝美華",
+      "idNo": "K123456789",
+      "email": "jane@example.com",
+      "phoneNo": "0901234567",
+      "birthday": "1996/04/12",
+      "memberType": "personal",
+      "verifyLevel": "3",
+      "addresses": [
+        {
+          "zip3": 105,
+          "city": "臺北市",
+          "town": "大安區",
+          "village": "和平里",
+          "street": "和平東路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市大安區和平東路 88 號 7 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "45678901-2345-6789-abcd-ef2345678901",
+      "account": "user0011",
+      "username": "Kevin",
+      "realName": "楊中興",
+      "idNo": "L234567890",
+      "email": "kevin@example.com",
+      "phoneNo": "0912345678",
+      "birthday": "1991/09/10",
+      "memberType": "personal",
+      "verifyLevel": "2",
+      "addresses": [
+        {
+          "zip3": 106,
+          "city": "臺北市",
+          "town": "信義區",
+          "village": "松高里",
+          "street": "松高路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市信義區松高路 40 號 3 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "56789012-3456-7890-abcd-ef3456789012",
+      "account": "user0012",
+      "username": "Linda",
+      "realName": "許君雅",
+      "idNo": "M345678901",
+      "email": "linda@example.com",
+      "phoneNo": "0923456789",
+      "birthday": "1987/12/25",
+      "memberType": "personal",
+      "verifyLevel": "3",
+      "addresses": [
+        {
+          "zip3": 107,
+          "city": "臺北市",
+          "town": "南港區",
+          "village": "三信里",
+          "street": "三信路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市南港區三信路 88 號 6 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "67890123-4567-8901-abcd-ef4567890123",
+      "account": "user0013",
+      "username": "Michael",
+      "realName": "郭瑞麟",
+      "idNo": "N456789012",
+      "email": "michael@example.com",
+      "phoneNo": "0934567890",
+      "birthday": "1992/06/28",
+      "memberType": "personal",
+      "verifyLevel": "2",
+      "addresses": [
+        {
+          "zip3": 110,
+          "city": "新北市",
+          "town": "中和區",
+          "village": "興南里",
+          "street": "興南路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "新北市中和區興南路 77 號 5 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "78901234-5678-9012-abcd-ef5678901234",
+      "account": "user0014",
+      "username": "Nancy",
+      "realName": "劉雅雯",
+      "idNo": "O567890123",
+      "email": "nancy@example.com",
+      "phoneNo": "0945678901",
+      "birthday": "1994/01/21",
+      "memberType": "personal",
+      "verifyLevel": "3",
+      "addresses": [
+        {
+          "zip3": 111,
+          "city": "新北市",
+          "town": "新莊區",
+          "village": "建國里",
+          "street": "建國路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "新北市新莊區建國路 50 號 3 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "89012345-6789-0123-abcd-ef6789012345",
+      "account": "user0015",
+      "username": "Oscar",
+      "realName": "陳建志",
+      "idNo": "P678901234",
+      "email": "oscar@example.com",
+      "phoneNo": "0956789012",
+      "birthday": "1988/11/01",
+      "memberType": "personal",
+      "verifyLevel": "2",
+      "addresses": [
+        {
+          "zip3": 104,
+          "city": "臺北市",
+          "town": "中山區",
+          "village": "和平里",
+          "street": "和平路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市中山區和平路 12 號 7 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "90123456-7890-1234-abcd-ef7890123456",
+      "account": "user0016",
+      "username": "Pamela",
+      "realName": "鄭家榮",
+      "idNo": "Q789012345",
+      "email": "pamela@example.com",
+      "phoneNo": "0967890123",
+      "birthday": "1993/02/18",
+      "memberType": "personal",
+      "verifyLevel": "3",
+      "addresses": [
+        {
+          "zip3": 106,
+          "city": "臺北市",
+          "town": "信義區",
+          "village": "松雅里",
+          "street": "松雅路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市信義區松雅路 18 號 5 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "01234567-8901-2345-abcd-ef8901234567",
+      "account": "user0017",
+      "username": "Quincy",
+      "realName": "林思成",
+      "idNo": "R890123456",
+      "email": "quincy@example.com",
+      "phoneNo": "0978901234",
+      "birthday": "1995/07/19",
+      "memberType": "personal",
+      "verifyLevel": "2",
+      "addresses": [
+        {
+          "zip3": 105,
+          "city": "臺北市",
+          "town": "大安區",
+          "village": "復興里",
+          "street": "復興南路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市大安區復興南路 12 號 4 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "12345678-9012-3456-abcd-ef9012345678",
+      "account": "user0018",
+      "username": "Rebecca",
+      "realName": "吳怡婷",
+      "idNo": "S901234567",
+      "email": "rebecca@example.com",
+      "phoneNo": "0989012345",
+      "birthday": "1986/05/10",
+      "memberType": "personal",
+      "verifyLevel": "3",
+      "addresses": [
+        {
+          "zip3": 106,
+          "city": "臺北市",
+          "town": "信義區",
+          "village": "松富里",
+          "street": "松富路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市信義區松富路 37 號 7 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "23456789-0123-4567-abcd-ef0123456789",
+      "account": "user0019",
+      "username": "Steve",
+      "realName": "周俊杰",
+      "idNo": "T012345678",
+      "email": "steve@example.com",
+      "phoneNo": "0970123456",
+      "birthday": "1989/12/28",
+      "memberType": "personal",
+      "verifyLevel": "2",
+      "addresses": [
+        {
+          "zip3": 107,
+          "city": "臺北市",
+          "town": "南港區",
+          "village": "安和里",
+          "street": "安和路",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市南港區安和路 22 號 3 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  },
+  {
+    "name": "TP_SUCCESS",
+    "status": 1,
+    "reasonPhrase": "Indicates the successful completion of an operation",
+    "data": {
+      "id": "34567890-1234-5678-abcd-ef1234567890",
+      "account": "user0020",
+      "username": "Tracy",
+      "realName": "黃建民",
+      "idNo": "U123456789",
+      "email": "tracy@example.com",
+      "phoneNo": "0987654321",
+      "birthday": "1992/03/30",
+      "memberType": "personal",
+      "verifyLevel": "3",
+      "addresses": [
+        {
+          "zip3": 103,
+          "city": "臺北市",
+          "town": "大同區",
+          "village": "大龍里",
+          "street": "大龍街",
+          "usageType": "0",
+          "seq": 1,
+          "priority": true
+        }
+      ],
+      "residentAddress": "臺北市大同區大龍街 50 號 6 樓",
+      "citizen": true,
+      "nativePeople": false,
+      "cityInternetUid": ""
+    },
+    "extra": null,
+    "version": "v1.0.9"
+  }
+]
