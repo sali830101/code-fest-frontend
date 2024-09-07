@@ -6,6 +6,7 @@ import { Outlet, useParams } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate, createSearchParams, useSearchParams } from "react-router-dom";
 import HomeView from "../views/HomeView.js";
+import ModuleController from "../controller/ModuleController.js";
 
 const theme = createTheme({
   palette: {
@@ -66,7 +67,7 @@ const ModuleLayout = () => {
             }}
             padding={3}
           >
-            <HomeView />
+            <ModuleController />
           </Box>
         </Box>
       </Box>

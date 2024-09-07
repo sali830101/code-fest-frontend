@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import HomeView from "../views/HomeView.js";
+import CategoryView from "../views/CategoryView.js";
 
 const ModuleController = () => {
   const { moduleName } = useParams();
@@ -9,10 +10,12 @@ const ModuleController = () => {
     /* Fetch data here */
   }, []);
 
-  if (moduleName === "3D Model Viewer") {
-    return null;
+  if (moduleName === "home") {
+    return <HomeView />;
+  } else if (moduleName === "form") {
+    return <HomeView />;
   } else {
-    return <HomeView />; // TODO: Redirect to 404
+    return <CategoryView />; // TODO: Redirect to 404
   }
 };
 
