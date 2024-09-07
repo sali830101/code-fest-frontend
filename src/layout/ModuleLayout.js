@@ -63,7 +63,7 @@ const ModuleLayout = () => {
               backgroundColor: theme.palette.background.default,
               zIndex: `${theme.zIndex.drawer - 1} !important`,
             }}
-            padding={3}
+            padding={2}
           >
             <ModuleController />
           </Box>
