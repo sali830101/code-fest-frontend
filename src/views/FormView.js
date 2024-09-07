@@ -25,6 +25,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import DeviceContentReader from "../component/DeviceFile.js";
 import HashtagInput from "../component/hashTag.js";
 import axios from "axios";
+import { Height } from "@mui/icons-material";
 
 const inlineStyle = {
   width: "80%",
@@ -37,69 +38,54 @@ const inlineStyle = {
 const selectStyle = {
   width: "80%",
 };
+
 const HomeView = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const API_KEY = "AIzaSyAYv2Xexb60SlUp1MwJKZmBxCdh62KUgsM";
+  // user data
+  const [eventID, setEventID] = useState("");
+  const [title, setTitle] = useState("");
+  const [address, setAddress] = useState("");
+  const [gpsData, setGPSData] = useState([]);
+  const [category, setCategory] = useState("");
+  const [comment, setComment] = useState("");
+  const [imagefile, setImageFile] = useState("");
+  const [startTime, setStartTime] = useState(dayjs("2024-09-08T10:30"));
+  const [endTime, setEndTime] = useState(dayjs("2024-09-08T15:30"));
+  const [postTime, setPostTime] = useState("");
+
+  const summit = JSON.stringify({
+    event_id: "event" + eventID,
+    post_user_id: "member1",
+    post_datetime: postTime,
+    coordinate: gpsData,
+    title: title,
+    category: category,
+    start_date: startTime,
+    end_date: endTime,
+    image: "image5.jpg",
+    hashtag: ["中正紀念堂", "自由廣場", "飲料", "五十嵐"],
+    post: comment,
+    comments: [],
+    status: "open",
+  });
+
+  const API_KEY = "AIzaSyBkItptRJKeHJmj03NrrFm8Oy-5khTKiow";
   const convertToGps = async (address) => {
     try {
       const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-          address
-        )}&key=${API_KEY}`
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`
       );
-
-      setGPSData(response);
+      const location = response.data.results[0].geometry.location;
+      setGPSData([
+        Number(location.lat.toFixed(4)),
+        Number(location.lng.toFixed(4)),
+      ]);
     } catch (err) {
       console.error("Geocoding error:", err);
     }
   };
-
-  // user data
-  const [title, setTitle] = useState("");
-  const [address, setAddress] = useState("");
-  const [gpsData, setGPSData] = useState("");
-  const [category, setCategory] = useState("");
-  const [comment, setComment] = useState("");
-  const [imagefile, setImageFile] = useState("");
-  const [startTime, setStartTime] = useState(dayjs("2022-04-17T15:30"));
-  const [endTime, setEndTime] = useState(dayjs("2022-04-17T15:30"));
-
-  const summit = JSON.stringify({
-    event_id: "event001",
-    post_user_id: "member1",
-    post_datetime: "%Y-%m-%d %H:%M:%S",
-    coordinate: [25.034, 121.5191],
-    title: "中正紀念堂自由廣場飲料",
-    category: "食物",
-    start_date: "2024-09-05T13:00:00",
-    end_date: "2024-09-05T16:00:00",
-    image: "image5.jpg",
-    hashtag: ["中正紀念堂", "自由廣場", "飲料", "五十嵐"],
-    post: "中正紀念堂兩廳院廣場有多訂五十嵐20杯，快來拿！",
-    comments: [
-      {
-        comment_id: "01",
-        user_id: "member2",
-        datetime: "%Y-%m-%d %H:%M:%S",
-        comment: "有什麼茶",
-      },
-      {
-        comment_id: "02",
-        user_id: "member3",
-        datetime: "%Y-%m-%d %H:%M:%S",
-        comment: "還有幾杯",
-      },
-      {
-        comment_id: "03",
-        user_id: "member1",
-        datetime: "%Y-%m-%d %H:%M:%S",
-        comment: "四季春, 八冰綠, 還有各5杯",
-      },
-    ],
-    status: "expired",
-  });
 
   const handleTitle = (event) => {
     setTitle(event.target.value);
@@ -107,7 +93,7 @@ const HomeView = () => {
 
   const handleAddress = (event) => {
     setAddress(event.target.value);
-    // convertToGps(event.target.value);
+    convertToGps(event.target.value);
   };
 
   const handleCategoryChange = (event) => {
@@ -124,7 +110,9 @@ const HomeView = () => {
     setImageFile();
   };
 
-  const handleCommentChange = () => {};
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
+  };
   const itemData = [
     {
       img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
@@ -176,42 +164,79 @@ const HomeView = () => {
     },
   ];
 
-  const handleChange = useCallback((e) => {
-    setTitle(e.target.value);
-  }, []);
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
 
   const saveToLocalStorage = () => {
-    localStorage.setItem("mobileData", "123456");
+    //建立post time
+    //儲存數據
+    //跳轉頁面
+    const currentTime = new Date();
+    setPostTime(formatDate(currentTime));
+    localStorage.setItem("data", summit);
     alert("數據已保存到 localStorage");
     readLocalStorag();
   };
 
   const readLocalStorag = () => {
-    let data = localStorage.getItem("mobileData");
+    let data = localStorage.getItem("data");
     setTestData(data);
   };
 
   const [test_data, setTestData] = useState("123");
 
-  useEffect(() => {}, [test_data]);
+  useEffect(() => {
+    const formatEventID = (number) => {
+      const positiveInt = Math.max(0, Math.floor(Number(number)));
+      return positiveInt.toString().padStart(3, "0");
+    };
 
-  const ScrollView = ({ children, height = "100%", width = "100%" }) => {
-    return (
-      <div
-        style={{
-          height,
-          width,
-          overflow: "auto",
-          border: "1px solid #ccc",
-          padding: "20px",
-        }}>
-        {children}
-      </div>
-    );
-  };
+    const data = localStorage.getItem("data");
+    if (data) {
+      try {
+        const parsedData = JSON.parse(data);
+        let length = 0;
+
+        if (Array.isArray(parsedData)) {
+          length = parsedData.length;
+        } else if (typeof parsedData === "object" && parsedData !== null) {
+          length = Object.keys(parsedData).length;
+        } else {
+          length = 1;
+        }
+
+        setEventID(formatEventID(length));
+      } catch (error) {
+        console.error("Error parsing data from localStorage:", error);
+        setEventID("000");
+      }
+    } else {
+      setEventID("000");
+    }
+  }, []);
 
   return (
-    <ScrollView height="100%" width="100%">
+    <Box
+      sx={{
+        overflowY: "auto",
+        height: "2400px",
+        "&::-webkit-scrollbar": {
+          width: "8px",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "rgba(0,0,0,.2)",
+          borderRadius: "4px",
+        },
+      }}>
+      <div>{summit}</div>
       <div>
         <label
           htmlFor="title"
@@ -226,11 +251,10 @@ const HomeView = () => {
           className="mt-1 block w-full shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           placeholder="請輸入標題"
           type="text"
-          // autoFocus={true}
         />
       </div>
 
-      <div>
+      {/* <div>
         <label
           htmlFor="address"
           className="block text-sm font-medium text-gray-700">
@@ -243,12 +267,11 @@ const HomeView = () => {
           onChange={handleAddress}
           className="mt-1 block w-full"
           placeholder="請輸入地址"
-          // autoFocus={true}
         />
       </div>
 
       <div>
-        <text style={{ fontSize: 12 }}>{gpsData}</text>
+        <text style={{ fontSize: 12 }}>{setEventID}</text>
       </div>
 
       <div>
@@ -286,7 +309,7 @@ const HomeView = () => {
       <div>
         <label
           htmlFor="comment"
-          className="block text-sm font-medium text-gray-700">
+          className="block text-sm font-medium text-gray-300">
           內容
         </label>
         <textarea
@@ -296,10 +319,10 @@ const HomeView = () => {
           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="請輸入完整訊息"
           rows={10}
-          style={{ minHeight: "550px", resize: "vertical" }}
+          style={{ Height: "250px", width: "100%" }}
         />
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <Button type="submit" className="w-full">
           上傳圖片
         </Button>
@@ -318,7 +341,7 @@ const HomeView = () => {
             </ImageListItem>
           ))}
         </ImageList>
-      </div>
+      </div> */}
       <div>
         <div className="bg-gray-100 min-h-screen py-8">
           <h1 className="text-2xl font-bold text-center mb-8">上傳照片</h1>
@@ -338,7 +361,7 @@ const HomeView = () => {
           提交
         </Button>
       </div>
-    </ScrollView>
+    </Box>
   );
 };
 export default HomeView;
