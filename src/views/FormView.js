@@ -1,13 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import * as React from "react";
-import {
-  Box,
-  Button,
-  Typography,
-  useTheme,
-  Input,
-  TextField,
-} from "@mui/material";
+import { Box, Button, Typography, useTheme, Input, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Map from "../component/Map";
 import InputLabel from "@mui/material/InputLabel";
@@ -54,14 +47,9 @@ const HomeView = () => {
   const API_KEY = "AIzaSyBkItptRJKeHJmj03NrrFm8Oy-5khTKiow";
   const convertToGps = async (address) => {
     try {
-      const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`
-      );
+      const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`);
       const location = response.data.results[0].geometry.location;
-      setGPSData([
-        Number(location.lat.toFixed(4)),
-        Number(location.lng.toFixed(4)),
-      ]);
+      setGPSData([Number(location.lat.toFixed(4)), Number(location.lng.toFixed(4))]);
     } catch (err) {
       console.error("Geocoding error:", err);
     }
@@ -178,33 +166,11 @@ const HomeView = () => {
 
     localStorage.setItem("data", JSON.stringify(latestSummit));
     goHomeView();
-  }, [
-    eventID,
-    address,
-    gpsData,
-    title,
-    category,
-    startTime,
-    endTime,
-    currentHashtags,
-    comment,
-    updateEventDataCount,
-  ]);
+  }, [eventID, address, gpsData, title, category, startTime, endTime, currentHashtags, comment, updateEventDataCount]);
 
   useEffect(() => {
     updateEventDataCount();
-  }, [
-    eventID,
-    address,
-    gpsData,
-    title,
-    category,
-    startTime,
-    endTime,
-    currentHashtags,
-    comment,
-    updateEventDataCount,
-  ]);
+  }, [eventID, address, gpsData, title, category, startTime, endTime, currentHashtags, comment, updateEventDataCount]);
 
   const goHomeView = (category) => {
     navigate(`/modules/home?category=${category}`);
@@ -222,7 +188,8 @@ const HomeView = () => {
           backgroundColor: "rgba(0,0,0,.2)",
           borderRadius: "4px",
         },
-      }}>
+      }}
+    >
       <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
         <Typography
           component="label"
@@ -232,7 +199,8 @@ const HomeView = () => {
             fontWeight: "medium",
             color: "text.secondary",
             width: "60px",
-          }}>
+          }}
+        >
           標題
         </Typography>
         <TextField
@@ -260,7 +228,8 @@ const HomeView = () => {
             fontWeight: "medium",
             color: "text.secondary",
             width: "60px",
-          }}>
+          }}
+        >
           地址
         </Typography>
         <TextField
@@ -288,16 +257,11 @@ const HomeView = () => {
             fontWeight: "medium",
             color: "text.secondary",
             width: "60px",
-          }}>
+          }}
+        >
           類別
         </Typography>
-        <Select
-          style={selectStyle}
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={category}
-          label="類別"
-          onChange={handleCategoryChange}>
+        <Select style={selectStyle} labelId="demo-simple-select-label" id="demo-simple-select" value={category} onChange={handleCategoryChange}>
           <MenuItem value={"food"}>食物</MenuItem>
           <MenuItem value={"item"}>物品</MenuItem>
           <MenuItem value={"help"}>人力 (小幫手)</MenuItem>
@@ -307,8 +271,7 @@ const HomeView = () => {
       <div>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={["DateTimePicker", "DateTimePicker"]}>
-            <Box
-              sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
               <Typography
                 component="label"
                 htmlFor="title"
@@ -317,19 +280,18 @@ const HomeView = () => {
                   fontWeight: "medium",
                   color: "text.secondary",
                   width: "60px",
-                }}>
+                }}
+              >
                 開始時間
               </Typography>
               <DateTimePicker
                 // label="開始時間"
                 value={startTime ? startTime : new Date()}
                 onChange={(newValue) => setStartTime(newValue)}
+                sx={{ flex: 1 }}
               />
-              <div style={{ margin: "10px" }}></div>
-              {/* </Box>
-            <Box
-              sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}
-            > */}
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
               <Typography
                 component="label"
                 htmlFor="title"
@@ -338,13 +300,15 @@ const HomeView = () => {
                   fontWeight: "medium",
                   color: "text.secondary",
                   width: "60px",
-                }}>
+                }}
+              >
                 結束時間
               </Typography>
               <DateTimePicker
                 // label="結束時間"
                 value={endTime ? endTime : new Date()}
                 onChange={(newValue) => setEndTime(newValue)}
+                sx={{ flex: 1 }}
               />
             </Box>
           </DemoContainer>
@@ -360,7 +324,8 @@ const HomeView = () => {
             fontWeight: "medium",
             color: "text.secondary",
             width: "60px",
-          }}>
+          }}
+        >
           內容
         </Typography>
         <TextField
@@ -382,7 +347,8 @@ const HomeView = () => {
             fontWeight: "medium",
             color: "text.secondary",
             width: "60px",
-          }}>
+          }}
+        >
           上傳照片
         </Typography>
         <DeviceContentReader />
@@ -396,7 +362,8 @@ const HomeView = () => {
             fontWeight: "medium",
             color: "text.secondary",
             width: "60px",
-          }}>
+          }}
+        >
           新增HashTag
         </Typography>
         <HashtagInput onHashtagsChange={handleHashtagsChange}></HashtagInput>
@@ -414,7 +381,8 @@ const HomeView = () => {
             "& .MuiButton-startIcon": {
               marginRight: 1,
             },
-          }}>
+          }}
+        >
           提交
         </Button>
       </Box>
