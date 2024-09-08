@@ -107,7 +107,7 @@ const HomeView = () => {
       .then((response) => response.json())
       .then((data) => {
         const d = window.localStorage.getItem("data");
-        window.localStorage.setItem("data", JSON.stringify(data));
+        // window.localStorage.setItem("data", JSON.stringify(data));
         if (!d) {
           window.localStorage.setItem("data", JSON.stringify(data));
         } else {
