@@ -177,7 +177,7 @@ const HomeView = () => {
     }
 
     localStorage.setItem("data", JSON.stringify(latestSummit));
-    alert(JSON.stringify(latestSummit));
+    goHomeView();
   }, [
     eventID,
     address,
@@ -222,10 +222,7 @@ const HomeView = () => {
           backgroundColor: "rgba(0,0,0,.2)",
           borderRadius: "4px",
         },
-      }}
-    >
-      <div>{eventID}</div>
-      <div>{eventData}</div>
+      }}>
       <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
         <Typography
           component="label"
@@ -235,8 +232,7 @@ const HomeView = () => {
             fontWeight: "medium",
             color: "text.secondary",
             width: "60px",
-          }}
-        >
+          }}>
           標題
         </Typography>
         <TextField
@@ -264,8 +260,7 @@ const HomeView = () => {
             fontWeight: "medium",
             color: "text.secondary",
             width: "60px",
-          }}
-        >
+          }}>
           地址
         </Typography>
         <TextField
@@ -293,8 +288,7 @@ const HomeView = () => {
             fontWeight: "medium",
             color: "text.secondary",
             width: "60px",
-          }}
-        >
+          }}>
           類別
         </Typography>
         <Select
@@ -303,8 +297,7 @@ const HomeView = () => {
           id="demo-simple-select"
           value={category}
           label="類別"
-          onChange={handleCategoryChange}
-        >
+          onChange={handleCategoryChange}>
           <MenuItem value={"food"}>食物</MenuItem>
           <MenuItem value={"item"}>物品</MenuItem>
           <MenuItem value={"help"}>人力 (小幫手)</MenuItem>
@@ -315,8 +308,7 @@ const HomeView = () => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={["DateTimePicker", "DateTimePicker"]}>
             <Box
-              sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}
-            >
+              sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
               <Typography
                 component="label"
                 htmlFor="title"
@@ -325,8 +317,7 @@ const HomeView = () => {
                   fontWeight: "medium",
                   color: "text.secondary",
                   width: "60px",
-                }}
-              >
+                }}>
                 開始時間
               </Typography>
               <DateTimePicker
@@ -347,8 +338,7 @@ const HomeView = () => {
                   fontWeight: "medium",
                   color: "text.secondary",
                   width: "60px",
-                }}
-              >
+                }}>
                 結束時間
               </Typography>
               <DateTimePicker
@@ -370,8 +360,7 @@ const HomeView = () => {
             fontWeight: "medium",
             color: "text.secondary",
             width: "60px",
-          }}
-        >
+          }}>
           內容
         </Typography>
         <TextField
@@ -393,8 +382,7 @@ const HomeView = () => {
             fontWeight: "medium",
             color: "text.secondary",
             width: "60px",
-          }}
-        >
+          }}>
           上傳照片
         </Typography>
         <DeviceContentReader />
@@ -408,8 +396,7 @@ const HomeView = () => {
             fontWeight: "medium",
             color: "text.secondary",
             width: "60px",
-          }}
-        >
+          }}>
           新增HashTag
         </Typography>
         <HashtagInput onHashtagsChange={handleHashtagsChange}></HashtagInput>
@@ -427,8 +414,7 @@ const HomeView = () => {
             "& .MuiButton-startIcon": {
               marginRight: 1,
             },
-          }}
-        >
+          }}>
           提交
         </Button>
       </Box>
