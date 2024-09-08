@@ -8,6 +8,8 @@ maplibregl.workerClass = maplibreglWorker;
 
 const Map = forwardRef(({ lng, lat, zoom, ...props }, ref) => {
   const mapContainer = useRef(null);
+  const [userLocation, setUserLocation] = useState(null);
+  const userMarker = useRef(null);
 
   useEffect(() => {
     if (!ref.current) {
@@ -15,15 +17,37 @@ const Map = forwardRef(({ lng, lat, zoom, ...props }, ref) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (ref.current && userLocation) {
+      if (userMarker.current) {
+        userMarker.current.setLngLat([userLocation.longitude, userLocation.latitude]);
+      } else {
+        userMarker.current = new maplibregl.Marker()
+          .setLngLat([userLocation.longitude, userLocation.latitude])
+          .addTo(ref.current);
+      }
+
+      ref.current.flyTo({
+        center: [userLocation.longitude, userLocation.latitude],
+        zoom: 14,
+        speed: 0.5,
+        curve: 1,
+        easing(t) {
+          return t;
+        },
+        essential: true,
+      });
+    }
+  }, [userLocation]);
+
   const initMap = () => {
     ref.current = new maplibregl.Map({
       container: mapContainer.current, // container id
       style: "https://api.maptiler.com/maps/c12b458c-9e18-4b86-941f-77310c674f66/style.json?key=wZclUAXOyI4a4xo1yK6k", // style URL
       center: [120.894092, 23.6353498],
       zoom: 8,
-      // pitch: 45,
-      // bearing: -35,
     });
+
     let customLayers = [];
     ref.current.on("style.load", () => {
       customLayers.forEach((customLayer) => {
@@ -33,18 +57,48 @@ const Map = forwardRef(({ lng, lat, zoom, ...props }, ref) => {
         center: [lng, lat],
         zoom: zoom,
         speed: 0.5,
-        curve: 1, // change the speed at which it zooms out
-        // This can be any easing function: it takes a number between
-        // 0 and 1 and returns another number between 0 and 1.
+        curve: 1,
         easing(t) {
           return t;
         },
-        // this animation is considered essential with respect to prefers-reduced-motion
         essential: true,
       });
     });
+
+    const gpsButton = document.createElement('button');
+    gpsButton.textContent = 'Get My Location';
+    gpsButton.className = 'maplibregl-ctrl-gps';
+    gpsButton.addEventListener('click', getUserLocation);
+
+    const gpsControl = new maplibregl.NavigationControl({
+      showCompass: false,
+      showZoom: false,
+      visualizePitch: false
+    });
+    gpsControl._container.appendChild(gpsButton);
+
+    ref.current.addControl(gpsControl, 'bottom-right');
+  };
+
+  const getUserLocation = () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error("Error getting user location:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
   };
 
   return <Box width="100%" height="100%" ref={mapContainer}></Box>;
 });
+
 export default Map;

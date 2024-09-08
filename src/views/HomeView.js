@@ -1,5 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { Box, Button, Typography, useTheme, Chip, CardMedia, IconButton } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  useTheme,
+  Chip,
+  CardMedia,
+  IconButton,
+} from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Map from "../component/Map";
 import Card from "@mui/material/Card";
@@ -8,7 +16,9 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup, { toggleButtonGroupClasses } from "@mui/material/ToggleButtonGroup";
+import ToggleButtonGroup, {
+  toggleButtonGroupClasses,
+} from "@mui/material/ToggleButtonGroup";
 import AddIcon from "@mui/icons-material/Add";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -59,10 +69,11 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
       border: 0,
     },
   },
-  [`& .${toggleButtonGroupClasses.middleButton},& .${toggleButtonGroupClasses.lastButton}`]: {
-    marginLeft: -1,
-    borderLeft: "1px solid transparent",
-  },
+  [`& .${toggleButtonGroupClasses.middleButton},& .${toggleButtonGroupClasses.lastButton}`]:
+    {
+      marginLeft: -1,
+      borderLeft: "1px solid transparent",
+    },
 }));
 
 const HomeView = () => {
@@ -90,10 +101,20 @@ const HomeView = () => {
     console.log(newCategory);
     setCategories(newCategory);
     let newCategories = [newCategory];
-    map.current.setFilter("requests", ["any", ...newCategories.map((c) => ["==", "category", c])]);
-    let filtered = allRequests.filter((r) => newCategories.includes(r.category));
+    map.current.setFilter("requests", [
+      "any",
+      ...newCategories.map((c) => ["==", "category", c]),
+    ]);
+    let filtered = allRequests.filter((r) =>
+      newCategories.includes(r.category)
+    );
     if (search) {
-      filtered = filtered.filter((r) => r.post.includes(search) || r.title.includes(search) || r.hashtag.join(",").includes(search));
+      filtered = filtered.filter(
+        (r) =>
+          r.post.includes(search) ||
+          r.title.includes(search) ||
+          r.hashtag.join(",").includes(search)
+      );
     }
     setFilteredRequests([...filtered]);
   };
@@ -115,12 +136,20 @@ const HomeView = () => {
           const requestObjects = requests.map((r) => {
             return {
               ...r,
-              postDateString: r.post_datetime ? new Date(r.post_datetime).toLocaleDateString() : null,
-              startDateString: r.start_date ? new Date(r.start_date).toLocaleDateString() : null,
-              endDateString: r.end_date ? new Date(r.end_date).toLocaleDateString() : null,
+              postDateString: r.post_datetime
+                ? new Date(r.post_datetime).toLocaleDateString()
+                : null,
+              startDateString: r.start_date
+                ? new Date(r.start_date).toLocaleDateString()
+                : null,
+              endDateString: r.end_date
+                ? new Date(r.end_date).toLocaleDateString()
+                : null,
             };
           });
-          let filtered = allRequests.filter((r) => [categories].includes(r.category));
+          let filtered = allRequests.filter((r) =>
+            [categories].includes(r.category)
+          );
           console.log(requestObjects);
           setAllRequests(requestObjects);
           setFilteredRequests(filtered);
@@ -169,7 +198,10 @@ const HomeView = () => {
         },
       });
       console.log(["any", ...[categories].map((c) => ["==", "category", c])]);
-      map.current.setFilter("requests", ["any", ...[categories].map((c) => ["==", "category", c])]);
+      map.current.setFilter("requests", [
+        "any",
+        ...[categories].map((c) => ["==", "category", c]),
+      ]);
       addMapEvent(requests);
       setMapLoaded(true);
     });
@@ -191,9 +223,13 @@ const HomeView = () => {
 
   const onMapMove = () => {
     if (!search) {
-      let features = map.current.queryRenderedFeatures({ layers: ["requests"] });
+      let features = map.current.queryRenderedFeatures({
+        layers: ["requests"],
+      });
       let eventIdsInView = features.map((f) => f.properties.event_id);
-      setFilteredRequests(allRequests.filter((r) => eventIdsInView.includes(r.event_id)));
+      setFilteredRequests(
+        allRequests.filter((r) => eventIdsInView.includes(r.event_id))
+      );
     }
   };
 
@@ -210,16 +246,32 @@ const HomeView = () => {
 
   const searchRequests = (event) => {
     const filtered = allRequests.filter(
-      (r) => r.post.includes(event.target.value) || r.title.includes(event.target.value) || r.hashtag.join(",").includes(event.target.value)
+      (r) =>
+        r.post.includes(event.target.value) ||
+        r.title.includes(event.target.value) ||
+        r.hashtag.join(",").includes(event.target.value)
     );
     setSearch(event.target.value);
     setFilteredRequests(filtered);
   };
 
   return (
-    <Box display="flex" flexDirection="column" gap={2} width="100%" height="100%">
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={2}
+      width="100%"
+      height="100%"
+    >
       <Box display="flex" flexDirection="column" gap={1}>
-        <StyledToggleButtonGroup size="small" color="primary" value={categories} exclusive onChange={handleCategory} aria-label="Platform">
+        <StyledToggleButtonGroup
+          size="small"
+          color="primary"
+          value={categories}
+          exclusive
+          onChange={handleCategory}
+          aria-label="Platform"
+        >
           <ToggleButton value={"人力 (小幫手)"}>
             <img height={30} alt="logo" src="icons/hands.png" />
           </ToggleButton>
@@ -263,7 +315,14 @@ const HomeView = () => {
               );
             }}
             size="small"
-            input={<OutlinedInput id="select-multiple-chip" label="狀態" size={"small"} k />}
+            input={
+              <OutlinedInput
+                id="select-multiple-chip"
+                label="狀態"
+                size={"small"}
+                k
+              />
+            }
             renderValue={(selected) => (
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                 {selected.map((value, index) => {
@@ -272,7 +331,9 @@ const HomeView = () => {
                       <Chip
                         size={"small"}
                         key={value}
-                        label={statusOption.filter((o) => o.value === value)[0].label}
+                        label={
+                          statusOption.filter((o) => o.value === value)[0].label
+                        }
                         sx={{ "& .MuiChip-label": { fontSize: 8 } }}
                       />
                     )
@@ -307,7 +368,14 @@ const HomeView = () => {
               );
             }}
             size="small"
-            input={<OutlinedInput id="select-multiple-chip" label="行政區" size={"small"} k />}
+            input={
+              <OutlinedInput
+                id="select-multiple-chip"
+                label="行政區"
+                size={"small"}
+                k
+              />
+            }
             renderValue={(selected) => (
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                 {selected.map((value, index) => {
@@ -316,7 +384,10 @@ const HomeView = () => {
                       <Chip
                         size={"small"}
                         key={value}
-                        label={districtOption.filter((o) => o.value === value)[0].label}
+                        label={
+                          districtOption.filter((o) => o.value === value)[0]
+                            .label
+                        }
                         sx={{ "& .MuiChip-label": { fontSize: 8 } }}
                       />
                     )
@@ -335,14 +406,32 @@ const HomeView = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box width="100%" height={180} position="relative" sx={{ zIndex: `${theme.zIndex.drawer + 3} !important` }}>
+      <Box
+        width="100%"
+        height={180}
+        position="relative"
+        sx={{ zIndex: `${theme.zIndex.drawer + 3} !important` }}
+      >
         <Map ref={map} lng={121.5151569} lat={25.0554262} zoom={12}></Map>
       </Box>
-      <Box maxHeight={180} sx={{ overflowY: "auto" }} display="flex" flexDirection="column" gap={1}>
+      <Box
+        maxHeight={180}
+        sx={{ overflowY: "auto" }}
+        display="flex"
+        flexDirection="column"
+        gap={1}
+      >
         {filteredRequests.length > 0 &&
           filteredRequests.map((row) => (
             <Card
-              sx={{ maxWidth: "100%", minHeight: 60, display: "flex", gap: 2, alignItems: "center", padding: 1 }}
+              sx={{
+                maxWidth: "100%",
+                minHeight: 60,
+                display: "flex",
+                gap: 2,
+                alignItems: "center",
+                padding: 1,
+              }}
               // display="flex"
               key={row.event_id}
               // gap={2}
@@ -360,25 +449,50 @@ const HomeView = () => {
               navigate(`/modules/event?event_id=${row.event_id}`);
             }}
           > */}
-              <Avatar sx={{ bgcolor: theme.palette.primary.main }} aria-label="recipe">
+              <Avatar
+                sx={{ bgcolor: theme.palette.primary.main }}
+                aria-label="recipe"
+              >
                 {getUser(row.post_user_id)?.realName.substring(0, 1)}
               </Avatar>
               <Box flex={1}>
-                <Typography variant="subtitle1" sx={{ color: "text.secondary", fontWeight: "bold", fontSize: "0.8rem" }}>
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    color: "text.secondary",
+                    fontWeight: "bold",
+                    fontSize: "0.8rem",
+                  }}
+                >
                   {row.title}
                 </Typography>
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  {row.post?.length > 10 ? `${row.post.substring(0, 10)}...` : row.post}
+                  {row.post?.length > 10
+                    ? `${row.post.substring(0, 10)}...`
+                    : row.post}
                 </Typography>
               </Box>
-              {row.image && <img height="30" width="30" src={`images/${row.image}`} alt="image" style={{ objectFit: "cover" }} />}
+              {row.image && (
+                <img
+                  height="30"
+                  width="30"
+                  src={`images/${row.image}`}
+                  alt="image"
+                  style={{ objectFit: "cover" }}
+                />
+              )}
               {/* </Box> */}
             </Card>
           ))}
       </Box>
       <IconButton
         aria-label="add"
-        sx={{ position: "absolute", bottom: 20, right: 20, backgroundColor: theme.palette.primary.main }}
+        sx={{
+          position: "absolute",
+          bottom: 20,
+          right: 20,
+          backgroundColor: theme.palette.primary.main,
+        }}
         onClick={() => {
           navigate("/modules/form");
         }}
