@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import maplibregl from "maplibre-gl";
 import maplibreglWorker from "maplibre-gl/dist/maplibre-gl-csp-worker";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -7,6 +7,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 maplibregl.workerClass = maplibreglWorker;
 
 const Map = forwardRef(({ lng, lat, zoom, ...props }, ref) => {
+  const theme = useTheme();
   const mapContainer = useRef(null);
   const [userLocation, setUserLocation] = useState(null);
   const userMarker = useRef(null);
@@ -22,7 +23,7 @@ const Map = forwardRef(({ lng, lat, zoom, ...props }, ref) => {
       if (userMarker.current) {
         userMarker.current.setLngLat([userLocation.longitude, userLocation.latitude]);
       } else {
-        userMarker.current = new maplibregl.Marker()
+        userMarker.current = new maplibregl.Marker({ color: theme.palette.primary.main })
           .setLngLat([userLocation.longitude, userLocation.latitude])
           .addTo(ref.current);
       }
@@ -53,31 +54,32 @@ const Map = forwardRef(({ lng, lat, zoom, ...props }, ref) => {
       customLayers.forEach((customLayer) => {
         ref.current.addLayer(customLayer);
       });
-      ref.current.flyTo({
-        center: [lng, lat],
-        zoom: zoom,
-        speed: 0.5,
-        curve: 1,
-        easing(t) {
-          return t;
-        },
-        essential: true,
-      });
+      // ref.current.flyTo({
+      //   center: [lng, lat],
+      //   zoom: zoom,
+      //   speed: 0.5,
+      //   curve: 1,
+      //   easing(t) {
+      //     return t;
+      //   },
+      //   essential: true,
+      // });
+      getUserLocation();
     });
 
-    const gpsButton = document.createElement('button');
-    gpsButton.textContent = 'Get My Location';
-    gpsButton.className = 'maplibregl-ctrl-gps';
-    gpsButton.addEventListener('click', getUserLocation);
+    // const gpsButton = document.createElement('button');
+    // gpsButton.textContent = 'Get My Location';
+    // gpsButton.className = 'maplibregl-ctrl-gps';
+    // gpsButton.addEventListener('click', getUserLocation);
 
-    const gpsControl = new maplibregl.NavigationControl({
-      showCompass: false,
-      showZoom: false,
-      visualizePitch: false
-    });
-    gpsControl._container.appendChild(gpsButton);
+    // const gpsControl = new maplibregl.NavigationControl({
+    //   showCompass: false,
+    //   showZoom: false,
+    //   visualizePitch: false
+    // });
+    // gpsControl._container.appendChild(gpsButton);
 
-    ref.current.addControl(gpsControl, 'bottom-right');
+    // ref.current.addControl(gpsControl, 'bottom-right');
   };
 
   const getUserLocation = () => {

@@ -1,13 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import {
-  Box,
-  Button,
-  Typography,
-  useTheme,
-  Chip,
-  CardMedia,
-  IconButton,
-} from "@mui/material";
+import { Box, Button, Typography, useTheme, Chip, CardMedia, IconButton } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Map from "../component/Map";
 import Card from "@mui/material/Card";
@@ -16,9 +8,7 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup, {
-  toggleButtonGroupClasses,
-} from "@mui/material/ToggleButtonGroup";
+import ToggleButtonGroup, { toggleButtonGroupClasses } from "@mui/material/ToggleButtonGroup";
 import AddIcon from "@mui/icons-material/Add";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -46,18 +36,18 @@ const statusOption = [
 ];
 
 const districtOption = [
-  { label: "中正區", value: "中正區" },
-  { label: "大同區", value: "大同區" },
-  { label: "中山區", value: "中山區" },
-  { label: "松山區", value: "松山區" },
-  { label: "大安區", value: "大安區" },
-  { label: "萬華區", value: "萬華區" },
-  { label: "信義區", value: "信義區" },
-  { label: "士林區", value: "士林區" },
-  { label: "北投區", value: "北投區" },
-  { label: "內湖區", value: "內湖區" },
-  { label: "南港區", value: "南港區" },
-  { label: "文山區", value: "文山區" },
+  { label: "中正區", value: "中正區", coordinates: [121.516921, 25.037491] },
+  { label: "大同區", value: "大同區", coordinates: [121.51546603410668, 25.06592787526384] },
+  { label: "中山區", value: "中山區", coordinates: [121.53369160802754, 25.064310820972267] },
+  { label: "松山區", value: "松山區", coordinates: [121.57732555563439, 25.049853611139127] },
+  { label: "大安區", value: "大安區", coordinates: [121.540652, 25.031515] },
+  { label: "萬華區", value: "萬華區", coordinates: [121.496747, 25.028171] },
+  { label: "信義區", value: "信義區", coordinates: [121.57283590648694, 25.033041383669655] },
+  { label: "士林區", value: "士林區", coordinates: [121.52557815600028, 25.09135929204008] },
+  { label: "北投區", value: "北投區", coordinates: [121.523992, 25.157915] },
+  { label: "內湖區", value: "內湖區", coordinates: [121.595569, 25.09487] },
+  { label: "南港區", value: "南港區", coordinates: [121.611237, 25.039229] },
+  { label: "文山區", value: "文山區", coordinates: [121.573265, 24.988882] },
 ];
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
@@ -69,11 +59,10 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
       border: 0,
     },
   },
-  [`& .${toggleButtonGroupClasses.middleButton},& .${toggleButtonGroupClasses.lastButton}`]:
-    {
-      marginLeft: -1,
-      borderLeft: "1px solid transparent",
-    },
+  [`& .${toggleButtonGroupClasses.middleButton},& .${toggleButtonGroupClasses.lastButton}`]: {
+    marginLeft: -1,
+    borderLeft: "1px solid transparent",
+  },
 }));
 
 const HomeView = () => {
@@ -94,27 +83,17 @@ const HomeView = () => {
     help: "人力 (小幫手)",
   };
   const [categories, setCategories] = useState(catDict[category]);
-  const [status, setStatus] = useState(statusOption.map((s) => s.value));
+  const [status, setStatus] = useState(["open"]);
   const [district, setDistrict] = useState(districtOption.map((s) => s.value));
 
   const handleCategory = (event, newCategory) => {
     console.log(newCategory);
     setCategories(newCategory);
     let newCategories = [newCategory];
-    map.current.setFilter("requests", [
-      "any",
-      ...newCategories.map((c) => ["==", "category", c]),
-    ]);
-    let filtered = allRequests.filter((r) =>
-      newCategories.includes(r.category)
-    );
+    map.current.setFilter("requests", ["any", ...newCategories.map((c) => ["==", "category", c])]);
+    let filtered = allRequests.filter((r) => newCategories.includes(r.category));
     if (search) {
-      filtered = filtered.filter(
-        (r) =>
-          r.post.includes(search) ||
-          r.title.includes(search) ||
-          r.hashtag.join(",").includes(search)
-      );
+      filtered = filtered.filter((r) => r.post.includes(search) || r.title.includes(search) || r.hashtag.join(",").includes(search));
     }
     setFilteredRequests([...filtered]);
   };
@@ -136,20 +115,12 @@ const HomeView = () => {
           const requestObjects = requests.map((r) => {
             return {
               ...r,
-              postDateString: r.post_datetime
-                ? new Date(r.post_datetime).toLocaleDateString()
-                : null,
-              startDateString: r.start_date
-                ? new Date(r.start_date).toLocaleDateString()
-                : null,
-              endDateString: r.end_date
-                ? new Date(r.end_date).toLocaleDateString()
-                : null,
+              postDateString: r.post_datetime ? new Date(r.post_datetime).toLocaleDateString() : null,
+              startDateString: r.start_date ? new Date(r.start_date).toLocaleDateString() : null,
+              endDateString: r.end_date ? new Date(r.end_date).toLocaleDateString() : null,
             };
           });
-          let filtered = allRequests.filter((r) =>
-            [categories].includes(r.category)
-          );
+          let filtered = allRequests.filter((r) => [categories].includes(r.category));
           console.log(requestObjects);
           setAllRequests(requestObjects);
           setFilteredRequests(filtered);
@@ -198,10 +169,7 @@ const HomeView = () => {
         },
       });
       console.log(["any", ...[categories].map((c) => ["==", "category", c])]);
-      map.current.setFilter("requests", [
-        "any",
-        ...[categories].map((c) => ["==", "category", c]),
-      ]);
+      map.current.setFilter("requests", ["any", ...[categories].map((c) => ["==", "category", c])]);
       addMapEvent(requests);
       setMapLoaded(true);
     });
@@ -227,9 +195,7 @@ const HomeView = () => {
         layers: ["requests"],
       });
       let eventIdsInView = features.map((f) => f.properties.event_id);
-      setFilteredRequests(
-        allRequests.filter((r) => eventIdsInView.includes(r.event_id))
-      );
+      setFilteredRequests(allRequests.filter((r) => eventIdsInView.includes(r.event_id)));
     }
   };
 
@@ -246,32 +212,31 @@ const HomeView = () => {
 
   const searchRequests = (event) => {
     const filtered = allRequests.filter(
-      (r) =>
-        r.post.includes(event.target.value) ||
-        r.title.includes(event.target.value) ||
-        r.hashtag.join(",").includes(event.target.value)
+      (r) => r.post.includes(event.target.value) || r.title.includes(event.target.value) || r.hashtag.join(",").includes(event.target.value)
     );
     setSearch(event.target.value);
     setFilteredRequests(filtered);
   };
 
+  const zoomToDistrict = (event) => {
+    setDistrict(event.target.value);
+    const target = districtOption.filter((d) => d.value === event.target.value)[0];
+    map.current.flyTo({
+      center: target.coordinates,
+      zoom: 12,
+      speed: 0.5,
+      curve: 1,
+      easing(t) {
+        return t;
+      },
+      essential: true,
+    });
+  };
+
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      width="100%"
-      height="100%"
-    >
+    <Box display="flex" flexDirection="column" gap={2} width="100%" height="100%">
       <Box display="flex" flexDirection="column" gap={1}>
-        <StyledToggleButtonGroup
-          size="small"
-          color="primary"
-          value={categories}
-          exclusive
-          onChange={handleCategory}
-          aria-label="Platform"
-        >
+        <StyledToggleButtonGroup size="small" color="primary" value={categories} exclusive onChange={handleCategory} aria-label="Platform">
           <ToggleButton value={"人力 (小幫手)"}>
             <img height={30} alt="logo" src="icons/hands.png" />
           </ToggleButton>
@@ -299,6 +264,65 @@ const HomeView = () => {
       </Box>
       <Box display="flex" gap={1}>
         <FormControl sx={{ flex: 1 }}>
+          <InputLabel id="demo-multiple-chip-label">行政區</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={district}
+            label="行政區"
+            onChange={zoomToDistrict}
+            size="small"
+            sx={{ height: 41 }}
+          >
+            {districtOption.map((o) => (
+              <MenuItem key={o.value} value={o.value}>
+                {o.label}
+              </MenuItem>
+            ))}
+          </Select>
+          {/* <Select
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={district}
+            onChange={(event) => {
+              const {
+                target: { value },
+              } = event;
+              setDistrict(
+                // On autofill we get a stringified value.
+                typeof value === "string" ? value.split(",") : value
+              );
+            }}
+            size="small"
+            input={<OutlinedInput id="select-multiple-chip" label="行政區" size={"small"} k />}
+            renderValue={(selected) => (
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                {selected.map((value, index) => {
+                  return (
+                    index < 2 && (
+                      <Chip
+                        size={"small"}
+                        key={value}
+                        label={districtOption.filter((o) => o.value === value)[0].label}
+                        sx={{ "& .MuiChip-label": { fontSize: 8 } }}
+                      />
+                    )
+                  );
+                })}
+                {selected.length > 2 && <Typography>...</Typography>}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
+            {districtOption.map((o) => (
+              <MenuItem key={o.value} value={o.value}>
+                {o.label}
+              </MenuItem>
+            ))}
+          </Select> */}
+        </FormControl>
+        <FormControl sx={{ flex: 1 }}>
           <InputLabel id="demo-multiple-chip-label">狀態</InputLabel>
           <Select
             labelId="demo-multiple-chip-label"
@@ -315,14 +339,7 @@ const HomeView = () => {
               );
             }}
             size="small"
-            input={
-              <OutlinedInput
-                id="select-multiple-chip"
-                label="狀態"
-                size={"small"}
-                k
-              />
-            }
+            input={<OutlinedInput id="select-multiple-chip" label="狀態" size={"small"} k />}
             renderValue={(selected) => (
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                 {selected.map((value, index) => {
@@ -331,9 +348,7 @@ const HomeView = () => {
                       <Chip
                         size={"small"}
                         key={value}
-                        label={
-                          statusOption.filter((o) => o.value === value)[0].label
-                        }
+                        label={statusOption.filter((o) => o.value === value)[0].label}
                         sx={{ "& .MuiChip-label": { fontSize: 8 } }}
                       />
                     )
@@ -351,76 +366,11 @@ const HomeView = () => {
             ))}
           </Select>
         </FormControl>
-        <FormControl sx={{ flex: 1 }}>
-          <InputLabel id="demo-multiple-chip-label">行政區</InputLabel>
-          <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
-            multiple
-            value={district}
-            onChange={(event) => {
-              const {
-                target: { value },
-              } = event;
-              setDistrict(
-                // On autofill we get a stringified value.
-                typeof value === "string" ? value.split(",") : value
-              );
-            }}
-            size="small"
-            input={
-              <OutlinedInput
-                id="select-multiple-chip"
-                label="行政區"
-                size={"small"}
-                k
-              />
-            }
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value, index) => {
-                  return (
-                    index < 2 && (
-                      <Chip
-                        size={"small"}
-                        key={value}
-                        label={
-                          districtOption.filter((o) => o.value === value)[0]
-                            .label
-                        }
-                        sx={{ "& .MuiChip-label": { fontSize: 8 } }}
-                      />
-                    )
-                  );
-                })}
-                {selected.length > 2 && <Typography>...</Typography>}
-              </Box>
-            )}
-            MenuProps={MenuProps}
-          >
-            {districtOption.map((o) => (
-              <MenuItem key={o.value} value={o.value}>
-                {o.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
       </Box>
-      <Box
-        width="100%"
-        height={180}
-        position="relative"
-        sx={{ zIndex: `${theme.zIndex.drawer + 3} !important` }}
-      >
+      <Box width="100%" height={180} position="relative" sx={{ zIndex: `${theme.zIndex.drawer + 3} !important` }}>
         <Map ref={map} lng={121.5151569} lat={25.0554262} zoom={12}></Map>
       </Box>
-      <Box
-        maxHeight={180}
-        sx={{ overflowY: "auto" }}
-        display="flex"
-        flexDirection="column"
-        gap={1}
-      >
+      <Box maxHeight={180} sx={{ overflowY: "auto" }} display="flex" flexDirection="column" gap={1}>
         {filteredRequests.length > 0 &&
           filteredRequests.map((row) => (
             <Card
@@ -449,10 +399,7 @@ const HomeView = () => {
               navigate(`/modules/event?event_id=${row.event_id}`);
             }}
           > */}
-              <Avatar
-                sx={{ bgcolor: theme.palette.primary.main }}
-                aria-label="recipe"
-              >
+              <Avatar sx={{ bgcolor: theme.palette.primary.main }} aria-label="recipe">
                 {getUser(row.post_user_id)?.realName.substring(0, 1)}
               </Avatar>
               <Box flex={1}>
@@ -467,20 +414,10 @@ const HomeView = () => {
                   {row.title}
                 </Typography>
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  {row.post?.length > 10
-                    ? `${row.post.substring(0, 10)}...`
-                    : row.post}
+                  {row.post?.length > 10 ? `${row.post.substring(0, 10)}...` : row.post}
                 </Typography>
               </Box>
-              {row.image && (
-                <img
-                  height="30"
-                  width="30"
-                  src={`images/${row.image}`}
-                  alt="image"
-                  style={{ objectFit: "cover" }}
-                />
-              )}
+              {row.image && <img height="30" width="30" src={`images/${row.image}`} alt="image" style={{ objectFit: "cover" }} />}
               {/* </Box> */}
             </Card>
           ))}

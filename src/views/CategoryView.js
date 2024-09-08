@@ -28,7 +28,8 @@ const HomeView = () => {
               <img height={60} alt="logo" src="icons/foods.png" />
             </IconButton>
           </Box>
-          <img height={60} alt="logo" src="icons/foods.png" />
+          <img width={"100%"} alt="logo" src="background02.png" />
+          <img width={"100%"} alt="logo" src="statistics.png" />
         </Box>
       )}
     </Box>
